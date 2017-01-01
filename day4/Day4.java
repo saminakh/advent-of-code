@@ -13,13 +13,32 @@ public class Day4 {
       for(int i = 0; i < 5; i++) {
         calcString += sorted[i];
       }
-
       if (calcString.equals(room[2])) {
         int roomNum = Integer.parseInt(room[1]);
         roomSum += roomNum;
+        // part 2
+        String decoded = decode(room[0], roomNum);
+        if(decoded.indexOf("north") >= 0 && decoded.indexOf("pole") >= 0) System.out.println("north pole obj store: " + roomNum);
       }
     }
-    System.out.println(roomSum);
+    System.out.println("room sum: " + roomSum);
+    
+  }
+  
+  public static String decode(String s, int shift) {
+    String decoded = "";
+    int modShift = shift % 26;
+    for(int i = 0; i < s.length(); i++) {
+      int newChar = (int) s.charAt(i);
+      if(newChar != 45) {
+        for (int j = 0; j < modShift; j++){
+          if (newChar == 122) newChar = 97;
+          else newChar++;
+        }
+      }
+      decoded += Character.toString((char) newChar);
+    }
+    return decoded;
   }
   
   public static int countChar(char c, String s) {
