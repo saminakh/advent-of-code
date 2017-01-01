@@ -5,13 +5,18 @@ import java.security.MessageDigest;
 public class Day5 {
   public static void main(String[] args){
     String input = "wtnhxymk";
-    String password = "";
+    StringBuilder password = new StringBuilder("--------");
     int i = 0;
-    while(password.length() < 8) {
+    char dash = '-';
+    while(password.indexOf("-") >= 0) {
       String hashInput = md5hash(input + i);
-      if(hashInput.length() > 5) {
+      if(hashInput.length() > 6) {
         if(hashInput.indexOf("00000") == 0){
-          password += hashInput.charAt(5);
+          int index = Character.getNumericValue(hashInput.charAt(5));
+          if(index < 8 && password.charAt(index) == dash) {
+            password.setCharAt(index, hashInput.charAt(6));
+            System.out.println(password);
+          }
         }
       }
       i++;
