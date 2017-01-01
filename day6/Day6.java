@@ -4,14 +4,29 @@ import java.util.*;
 public class Day6 {
   public static void main(String[] args) {
     String[] data = readData("data.txt");
+    String maxString = "";
+    String minString = "";
     for(String s : data) {
       HashMap map = charList(s);
-      char letter = maxChar(map);
-      System.out.print(letter);
+      maxString += maxChar(map);
+      minString += minChar(map);
     }
-    System.out.println();
+    System.out.println("max: " + maxString);
+    System.out.println("min: " + minString);
   }
-  
+
+  public static char minChar(HashMap map) {
+    int maxVal = 10000;
+    char maxKey = ' ';
+    for(Object key : map.keySet()) {
+      if((int)map.get(key) < maxVal) {
+        maxKey = (char)key;
+        maxVal = (int)map.get(key);
+      }
+    }
+    return maxKey;
+  }
+    
   public static char maxChar(HashMap map) {
     int maxVal = 0;
     char maxKey = ' ';
